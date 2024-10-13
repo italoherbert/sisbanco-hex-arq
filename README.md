@@ -62,7 +62,7 @@ Todas as subpastas abaixo estão na pasta <b>italo/sisbanco/</b>.
 
 ## Como rodar o sistema
 
-O sistema é um microserviço só e depende apenas de um banco de dados postgresql configurável no arquivo "<b>application.properties</b>" da aplicação.
+O sistema é um microserviço só e depende apenas do jdk, versão 17, e0.0.1 de um banco de dados postgresql configurável no arquivo "<b>application.properties</b>" da aplicação.
 
 ### O banco de dados está com a seguinte configuração
 
@@ -71,15 +71,29 @@ O sistema é um microserviço só e depende apenas de um banco de dados postgres
 * <b>username</b>: postgres
 * <b>password</b>: postgres
 
-### Rodar utilizando o maven
+### Empacotar utilizando o maven
 
 Para fazer o build e empacotamento da aplicação, utilize o seguinte comando:
 
 ```
 ./mvnw clean package
 ```
+### Rodar o Jar da aplicação
+
 Para rodar, após o build bem sucedido, basta executar o jar que foi gerado e colocado na pasta "target/":
 
-```
+```0.0.1
 java -jar sisbanco-1.0-SNAPSHOT.jar
 ```
+## Rodar o swagger
+
+Para rodar o swagger, abra seu navegador preferido e acesse o swagger pela seguinte url:
+
+```
+http://localhost:8080/swagger-ui.html
+```
+
+## Finalizando...
+
+Este projeto fez bom uso da arquitetura hexagonal para separar a lógica de negócio e de domínio do restante da aplicação. Todo o módulo de 
+core, não tem dependência direta de outras tecnologias mas, sim, é utilizado pelo módulo de infraestrutura da aplicação
