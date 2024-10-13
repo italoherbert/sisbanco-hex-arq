@@ -19,6 +19,18 @@ Todas as subpastas abaixo estão na pasta <b>italo/sisbanco/</b>.
  
 * <b>error</b> : Onde é definida a classe de exceção principal herdada pelas exceptions do módulo <b>core</b>.
 
-* <b>infra</b>
-    - <b>config</b> :
+* <b>infra</b> : Onde fica toda parte que utiliza tecnologias externas
+    - <b>config</b> : Onde são definidas as configurações do spring boot e os beans que são instâncias das implementações da lógica de negócio.
+    - <b>persistence</b> : Onde são definidos os repositórios e mapeamento de entidades do banco de dados.
+        - <b>entity</b> : Onde são definidos os mapeamentos das entidades do banco de dados
+        - <b>repository</b> : Onde são definidos os repositórios JPA da aplicação para manipuçação do banco de dados
+    - <b>service</b> : Onde são definidos os adaptadores que são, também, beans de Services do spring boot. Esses adaptadores implementam portas out do módulo <b>core</b>
+    - <b>mapper</b> : Onde são definidas as classes com métodos de mapeamento das entidades, classes de domínio e dtos do sistema
+    - <b>util</b> : Onde ficam as classes utilitárias. Nesse caso há apenas a classe de encriptação de passwords com um algorítmo facilmente quebrável
+    - <b>entrypoint</b> : Onde ficam os controllers e toda a parte utilizada apenas no controller
+        - <b>controller</b> : Onde ficam as implementações dos endpoints do sistema
+        - <b>dto</b> : Onde ficam as classes que mapeiam os JSONs de entrada e saída dos endpoints
+        - <b>apidoc</b> : Onde ficam as implementações das anotações de documentação do sistema
+    - <b>exception</b> : Onde fica a lógica de captura das exceções pelo spring boot. Classes anotadas com @ControllerAdvice.
+
 
