@@ -33,4 +33,29 @@ Todas as subpastas abaixo estão na pasta <b>italo/sisbanco/</b>.
         - <b>apidoc</b> : Onde ficam as implementações das anotações de documentação do sistema
     - <b>exception</b> : Onde fica a lógica de captura das exceções pelo spring boot. Classes anotadas com @ControllerAdvice.
 
+## Estrutura de pacotes básicas dos testes da aplicação
 
+* <b>core</b>
+    - <b>domain</b> : Onde ficam os testes das validações das entidades de domínio.
+    - <b>serviceimpl</b> : Onde ficam todos os <b>testes da implementação da lógica de negócio</b>.
+* <b>infra</b>
+    - <b>mapper</b> : Onde ficam os testes dos mappers do sistema.
+    - <b>service</b> : Onde ficam os testes dos services adaptadores
+    - <b>controller</b> : Onde ficam os testes dos endpoints do sistema
+
+## Principais endpoints do sistema
+
+* Conta
+    - Criação de conta
+    - Alteração de conta
+    - Remoção de conta
+    - Retorno de conta pelo ID
+    - Retorno de conta pelo username do usuário
+    - Retorno de conta pelo email do usuário
+    - Listagem de todas as contas
+    - Depósito em conta corrente
+    - Saque em conta corrente
+    - Transferência em conta corrente
+
+* Usuário
+    - Listagem de usuários
