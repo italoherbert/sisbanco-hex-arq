@@ -1,4 +1,4 @@
-# sistema de banco com Spring Boot e Arquitetura Hexagonal
+# Sistema de banco com Spring Boot e Arquitetura Hexagonal
 
 Este sistema foi construído utilizando arquitetura hexagonal para separar 
 a lógica de negócios, domínio e validações da camada de infraestrutura, 
