@@ -59,3 +59,27 @@ Todas as subpastas abaixo estão na pasta <b>italo/sisbanco/</b>.
 
 * Usuário
     - Listagem de usuários
+
+## Como rodar o sistema
+
+O sistema é um microserviço só e depende apenas de um banco de dados postgresql configurável no arquivo "<b>application.properties</b>" da aplicação.
+
+### O banco de dados está com a seguinte configuração
+
+* <b>driver</b>: org.postgresql.Driver
+* <b>url</b>: jdbc:postgresql://localhost:5432/sisbanco
+* <b>username</b>: postgres
+* <b>password</b>: postgres
+
+### Rodar utilizando o maven
+
+Para fazer o build e empacotamento da aplicação, utilize o seguinte comando:
+
+```
+./mvnw clean package
+```
+Para rodar, após o build bem sucedido, basta executar o jar que foi gerado e colocado na pasta "target/":
+
+```
+java -jar sisbanco-1.0-SNAPSHOT.jar
+```
