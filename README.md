@@ -95,5 +95,6 @@ http://localhost:8080/swagger-ui.html
 
 ## Finalizando...
 
-Este projeto fez bom uso da arquitetura hexagonal para separar a lógica de negócio e de domínio do restante da aplicação. Todo o módulo de 
-core, não tem dependência direta de outras tecnologias mas, sim, é utilizado pelo módulo de infraestrutura da aplicação
+Este projeto fez bom uso da arquitetura hexagonal para separar a lógica de negócio e de domínio do restante da aplicação. Todo o módulo de core, não tem dependência direta de outras tecnologias mas, sim, é utilizado pelo módulo de infraestrutura da aplicação.
+
+Espero que gostem do projeto e, até o próximo...
