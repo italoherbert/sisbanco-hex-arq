@@ -1,8 +1,32 @@
 # Sistema de banco com Spring Boot e Arquitetura Hexagonal
 
-Este sistema foi construído utilizando arquitetura hexagonal para separar 
-a lógica de negócios, domínio e validações da camada de infraestrutura, 
+Esse sistema é um simples sistema de banco com suporte a conta corrente e 
+operações de: depósito, saque e transferência de dinheiro.
+
+A arquitetura hexagonal foi utilizada para separar 
+a lógica de negócios, domínio e validações do módulo de infraestrutura, 
 onde são tratadas as dependências tecnológicas do projeto.
+
+O spring security não foi utilizado numa tentativa de manter a aplicação o mais 
+simples e didática possível. Logo, os endpoints são públicos e não necessitam 
+de token de acesso para serem utilizados.
+
+## Principais endpoints do sistema
+
+* Conta
+    - Criação de conta
+    - Alteração de conta
+    - Remoção de conta
+    - Retorno de conta pelo ID
+    - Retorno de conta pelo username do usuário
+    - Retorno de conta pelo email do usuário
+    - Listagem de todas as contas
+    - Depósito em conta corrente
+    - Saque em conta corrente
+    - Transferência em conta corrente
+
+* Usuário
+    - Listagem de usuários
 
 ## Estrutura de pacotes básica da aplicação
 
@@ -42,23 +66,6 @@ Todas as subpastas abaixo estão na pasta <b>italo/sisbanco/</b>.
     - <b>mapper</b> : Onde ficam os testes dos mappers do sistema.
     - <b>service</b> : Onde ficam os testes dos services adaptadores
     - <b>controller</b> : Onde ficam os testes dos endpoints do sistema
-
-## Principais endpoints do sistema
-
-* Conta
-    - Criação de conta
-    - Alteração de conta
-    - Remoção de conta
-    - Retorno de conta pelo ID
-    - Retorno de conta pelo username do usuário
-    - Retorno de conta pelo email do usuário
-    - Listagem de todas as contas
-    - Depósito em conta corrente
-    - Saque em conta corrente
-    - Transferência em conta corrente
-
-* Usuário
-    - Listagem de usuários
 
 ## Como rodar o sistema
 
