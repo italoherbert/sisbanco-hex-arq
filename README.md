@@ -73,7 +73,7 @@ Todas as subpastas abaixo estão na pasta <b>italo/sisbanco/</b>.
 
 ## Como rodar o sistema
 
-O sistema é um microserviço só e depende apenas do jdk, versão 17, e0.0.1 de um banco de dados postgresql configurável no arquivo "<b>application.properties</b>" da aplicação.
+O sistema é um microserviço só e depende apenas do jdk, versão 17, e de um banco de dados postgresql configurável no arquivo "<b>application.properties</b>" da aplicação.
 
 ### O banco de dados está com a seguinte configuração
 
