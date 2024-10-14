@@ -8,6 +8,8 @@ import italo.sisbanco.core.domain.User;
 
 public interface UserServicePort {
     
+    void update( User user );
+
     List<User> findAll();
 
     Optional<User> get( UUID userId );

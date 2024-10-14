@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import italo.sisbanco.core.domain.Account;
@@ -30,7 +31,6 @@ import italo.sisbanco.infra.entrypoint.apidoc.account.UpdateAccountDoc;
 import italo.sisbanco.infra.entrypoint.dto.account.BankTransactionValueRequest;
 import italo.sisbanco.infra.entrypoint.dto.account.SaveAccountRequest;
 import italo.sisbanco.infra.mapper.AccountMapper;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -78,7 +78,7 @@ public class AccountController {
     @GetByUsernameAccountDoc
     @GetMapping("/get/by-username")
     public ResponseEntity<Account> getByUsername( 
-            @PathParam("username") String username ) {
+            @RequestParam("username") String username ) {
         Account account = accountService.getByUsername( username );
         return ResponseEntity.ok( account );
     }
@@ -86,7 +86,7 @@ public class AccountController {
     @GetByEmailAccountDoc
     @GetMapping("/get/by-email")
     public ResponseEntity<Account> getByEmail( 
-            @PathParam("email") String email ) {
+            @RequestParam("email") String email ) {
         Account account = accountService.getByEmail( email );
         return ResponseEntity.ok( account );
     }

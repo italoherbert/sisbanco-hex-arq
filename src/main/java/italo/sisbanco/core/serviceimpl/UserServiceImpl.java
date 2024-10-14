@@ -53,6 +53,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void alterPassword(UUID userId, String newPassword) {
+        Optional<User> userOp = userServicePort.get( userId );
+        if ( !userOp.isPresent() )
+            throw new BusinessException( BusinessException.USER_NOT_FOUND );
+
+        User user = userOp.get();
+        user.setPassword( newPassword );
+
+        userServicePort.update( user ); 
+    }
+
+    @Override
     public List<User> list() {
         return userServicePort.findAll();
     }

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -38,6 +39,18 @@ public class UserServiceAdapterTests {
 
     @Autowired
     private PasswordEncoder2 passwordEncoder;
+
+    @Test
+    @DisplayName("Deve atualizar o usuário com sucesso.")
+    void updateTest() {
+        UserEntity entity = UserMocks.createUserEntity();
+        User user = userMapper.map( entity );
+
+        when( userRepository.save( any( UserEntity.class ) ) ).thenReturn( entity );
+
+        userServiceAdapter.update( user );
+        verify( userRepository, times( 1 ) ).save( any( UserEntity.class ) );
+    }   
 
     @Test
     @DisplayName("Deve retornar um User pelo ID com sucesso")

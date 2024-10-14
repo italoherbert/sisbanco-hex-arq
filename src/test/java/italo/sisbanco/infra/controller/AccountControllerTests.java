@@ -1,5 +1,11 @@
 package italo.sisbanco.infra.controller;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
@@ -60,38 +66,36 @@ public class AccountControllerTests {
                 .content( content ) )
             .andExpect( status().isCreated() );
             
+        verify( accountService, times( 1 ) ).create( any( Account.class ) );
     }
 
     @Test
     @DisplayName("Deve atualizar uma conta com sucesso.")
     void shouldUpdateAccountWithSuccessTest() throws Exception {
         SaveAccountRequest request = AccountMocks.createSaveAccountRequest();
-        String accountId = UUID.randomUUID().toString();
+        UUID accountId = UUID.randomUUID();
 
-        String content = new ObjectMapper().writeValueAsString( request );        
-
+        String content = new ObjectMapper().writeValueAsString( request );      
+        
         mockMvc.perform( 
             put("/api/sisbanco/v1/accounts/"+accountId )
                 .contentType( MediaType.APPLICATION_JSON )
                 .content( content ) )
             .andExpect( status().isOk() );
             
+        verify( accountService, times( 1 ) ).update( eq( accountId ), any( Account.class ) );
     }
 
     @Test
     @DisplayName("Deve remover uma conta com sucesso.")
     void shouldRemoveAccountWithSuccessTest() throws Exception {
-        SaveAccountRequest request = AccountMocks.createSaveAccountRequest();
-        String accountId = UUID.randomUUID().toString();
-
-        String content = new ObjectMapper().writeValueAsString( request );        
+        UUID accountId = UUID.randomUUID();
 
         mockMvc.perform( 
-            delete("/api/sisbanco/v1/accounts/"+accountId )
-                .contentType( MediaType.APPLICATION_JSON )
-                .content( content ) )
+            delete("/api/sisbanco/v1/accounts/"+accountId ) )
             .andExpect( status().isOk() );
             
+        verify( accountService, times( 1 ) ).delete( accountId );
     }
 
     @Test
@@ -99,17 +103,21 @@ public class AccountControllerTests {
     void shouldListAccountWithSuccessTest() throws Exception {
         mockMvc.perform( 
             get("/api/sisbanco/v1/accounts" ) )                
-            .andExpect( status().isOk() );            
+            .andExpect( status().isOk() ); 
+            
+        verify( accountService, times( 1 ) ).list();
     }
 
     @Test
     @DisplayName("Deve retornar uma conta com sucesso.")
     void shouldGetAccountWithSuccessTest() throws Exception {
-        String accountId = UUID.randomUUID().toString();
+        UUID accountId = UUID.randomUUID();
 
         mockMvc.perform( 
             get("/api/sisbanco/v1/accounts/"+accountId+"/get" ) )                
             .andExpect( status().isOk() );            
+
+        verify( accountService, times( 1 ) ).get( accountId );
     }
 
     @Test
@@ -121,7 +129,9 @@ public class AccountControllerTests {
         mockMvc.perform( 
             get("/api/sisbanco/v1/accounts/get/by-username" )
                 .param( "username", username ) )                
-            .andExpect( status().isOk() );            
+            .andExpect( status().isOk() );     
+            
+        verify( accountService, times( 1 ) ).getByUsername( username );
     }
 
     @Test
@@ -134,6 +144,8 @@ public class AccountControllerTests {
             get("/api/sisbanco/v1/accounts/get/by-email" )
                 .param( "email", email ) )                
             .andExpect( status().isOk() );            
+
+        verify( accountService, times( 1 ) ).getByEmail( email );
     }
 
     @Test

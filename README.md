@@ -26,6 +26,7 @@ de token de acesso para serem utilizados.
     - Transferência em conta corrente
 
 * Usuário
+    - Alteração de senha
     - Listagem de usuários
 
 ## Estrutura de pacotes básica da aplicação

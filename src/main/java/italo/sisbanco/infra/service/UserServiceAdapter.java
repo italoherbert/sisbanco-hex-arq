@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import italo.sisbanco.core.domain.User;
 import italo.sisbanco.core.ports.out.UserServicePort;
 import italo.sisbanco.infra.mapper.UserMapper;
+import italo.sisbanco.infra.persistence.entity.UserEntity;
 import italo.sisbanco.infra.persistence.repository.UserRepository;
 import italo.sisbanco.infra.util.PasswordEncoder2;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,12 @@ public class UserServiceAdapter implements UserServicePort {
     private final UserMapper userMapper;
 
     private final PasswordEncoder2 passwordEncoder;
+
+    @Override
+    public void update(User user) {
+        UserEntity entity = userMapper.map( user );
+        userRepository.save( entity );        
+    }
 
     @Override
     public Optional<User> get(UUID userId) {

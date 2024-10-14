@@ -1,6 +1,7 @@
 package italo.sisbanco.core.ports.in;
 
 import java.util.List;
+import java.util.UUID;
 
 import italo.sisbanco.core.domain.User;
 
@@ -10,6 +11,8 @@ public interface UserService {
 
     void prepareUserForUpdate( User user );
 
-    List<User> list();
+    void alterPassword( UUID userId, String newPassword );
     
+    List<User> list();
+
 }
