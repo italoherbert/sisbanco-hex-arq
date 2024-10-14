@@ -70,7 +70,7 @@ public class AccountController {
     }
 
     @GetAccountDoc
-    @GetMapping("/{accountId}/get")
+    @GetMapping("/{accountId}")
     public ResponseEntity<Account> get( 
             @PathVariable UUID accountId ) {
         Account account = accountService.get( accountId );
@@ -78,7 +78,7 @@ public class AccountController {
     }
 
     @GetByUsernameAccountDoc
-    @GetMapping("/get/by-username")
+    @GetMapping("/by-username")
     public ResponseEntity<Account> getByUsername( 
             @RequestParam("username") String username ) {
         Account account = accountService.getByUsername( username );
@@ -86,7 +86,7 @@ public class AccountController {
     }
 
     @GetByEmailAccountDoc
-    @GetMapping("/get/by-email")
+    @GetMapping("/by-email")
     public ResponseEntity<Account> getByEmail( 
             @RequestParam("email") String email ) {
         Account account = accountService.getByEmail( email );

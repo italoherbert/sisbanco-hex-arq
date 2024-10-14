@@ -114,7 +114,7 @@ public class AccountControllerTests {
         UUID accountId = UUID.randomUUID();
 
         mockMvc.perform( 
-            get("/api/sisbanco/v1/accounts/"+accountId+"/get" ) )                
+            get("/api/sisbanco/v1/accounts/"+accountId ) )                
             .andExpect( status().isOk() );            
 
         verify( accountService, times( 1 ) ).get( accountId );
@@ -127,7 +127,7 @@ public class AccountControllerTests {
         String username = account.getUser().getUsername(); 
 
         mockMvc.perform( 
-            get("/api/sisbanco/v1/accounts/get/by-username" )
+            get("/api/sisbanco/v1/accounts/by-username" )
                 .param( "username", username ) )                
             .andExpect( status().isOk() );     
             
@@ -141,7 +141,7 @@ public class AccountControllerTests {
         String email = account.getUser().getEmail(); 
 
         mockMvc.perform( 
-            get("/api/sisbanco/v1/accounts/get/by-email" )
+            get("/api/sisbanco/v1/accounts/by-email" )
                 .param( "email", email ) )                
             .andExpect( status().isOk() );            
 
