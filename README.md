@@ -93,7 +93,7 @@ Para fazer o build e empacotamento da aplicação, utilize o seguinte comando:
 
 Para rodar, após o build bem sucedido, basta executar o jar que foi gerado e colocado na pasta "target/":
 
-```0.0.1
+```
 java -jar sisbanco-1.0-SNAPSHOT.jar
 ```
 ## Rodar o swagger
@@ -103,6 +103,16 @@ Para rodar o swagger, abra seu navegador preferido e acesse o swagger pela segui
 ```
 http://localhost:8080/swagger-ui.html
 ```
+
+## Rodar a release
+
+Para rodar a release, basta baixar o jar disponível no github como release para este projeto e configurar o banco de dados conforme já mostrado anteriormente. Rode o jar com o seguinte comando:
+
+```
+java -jar sisbanco-1.0-SNAPSHOT.jar
+```
+
+O jar baixado corresponde ao mesmo jar gerado pelo maven no empacotamento da aplicação.
 
 ## Finalizando...
 
