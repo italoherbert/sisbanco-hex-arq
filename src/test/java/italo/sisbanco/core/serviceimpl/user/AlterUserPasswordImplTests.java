@@ -29,13 +29,15 @@ public class AlterUserPasswordImplTests {
 
         User user = UserMocks.createUser();
         String newPassword = "&Hg98Jsj04";
+        String encodedPassword = "097483625874678";
 
         when( userServicePort.get( user.getId() ) ).thenReturn( Optional.of( user ) );
+        when( userServicePort.encodePassword( newPassword ) ).thenReturn( encodedPassword );
         doNothing().when( userServicePort ).update( user );
 
         userService.alterPassword( user.getId(), newPassword );
 
-        assertEquals( user.getPassword(), newPassword );
+        assertEquals( user.getPassword(), encodedPassword );
     }
 
     @Test

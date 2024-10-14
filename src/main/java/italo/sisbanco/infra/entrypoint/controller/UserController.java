@@ -32,7 +32,7 @@ public class UserController {
             @RequestBody SavePasswordUserRequest request ) {
         
         String newPassword = request.getPassword();
-        userService.alterPassword( userId , newPassword );
+        userService.alterPassword( userId, newPassword );
         return ResponseEntity.ok().build();
     }
 
