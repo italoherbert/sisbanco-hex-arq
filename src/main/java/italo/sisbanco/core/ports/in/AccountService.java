@@ -21,10 +21,10 @@ public interface AccountService {
 
     Account getByEmail( String email );
     
-    void deposit( UUID accountId, double value );
+    Account deposit( UUID accountId, double value );
 
-    void cash( UUID accountId, double value );
+    Account cash( UUID accountId, double value );
 
-    void transfer( UUID sourceAccountId, UUID destAccountId, double value );
+    Account transfer( UUID sourceAccountId, UUID destAccountId, double value );
 
 }

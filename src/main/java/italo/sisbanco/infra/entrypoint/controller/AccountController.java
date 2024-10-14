@@ -28,6 +28,7 @@ import italo.sisbanco.infra.entrypoint.apidoc.account.GetByUsernameAccountDoc;
 import italo.sisbanco.infra.entrypoint.apidoc.account.ListAccountsDoc;
 import italo.sisbanco.infra.entrypoint.apidoc.account.TransferDoc;
 import italo.sisbanco.infra.entrypoint.apidoc.account.UpdateAccountDoc;
+import italo.sisbanco.infra.entrypoint.dto.account.BalanceResponse;
 import italo.sisbanco.infra.entrypoint.dto.account.BankTransactionValueRequest;
 import italo.sisbanco.infra.entrypoint.dto.account.CreateAccountRequest;
 import italo.sisbanco.infra.entrypoint.dto.account.SaveAccountRequest;
@@ -57,8 +58,8 @@ public class AccountController {
             @RequestBody SaveAccountRequest request ) {
 
         Account account = accountMapper.map( request );
-        accountService.update( accountId, account );
-        return ResponseEntity.ok().build();
+        Account updatedAccount = accountService.update( accountId, account );
+        return ResponseEntity.ok( updatedAccount );
     }
 
     @ListAccountsDoc
@@ -106,8 +107,13 @@ public class AccountController {
             @RequestBody BankTransactionValueRequest request ) {
 
         double value = request.getValue();
-        accountService.deposit( accountId, value );
-        return ResponseEntity.ok().build();
+        Account account = accountService.deposit( accountId, value );
+
+        BalanceResponse resp = BalanceResponse.builder()
+            .balance( account.getBalance() )
+            .build();
+
+        return ResponseEntity.ok( resp );
     }
 
     @CashDoc
@@ -117,8 +123,13 @@ public class AccountController {
             @RequestBody BankTransactionValueRequest request ) {
 
         double value = request.getValue();
-        accountService.cash( accountId, value );
-        return ResponseEntity.ok().build();
+        Account account = accountService.cash( accountId, value );
+        
+        BalanceResponse resp = BalanceResponse.builder()
+            .balance( account.getBalance() )
+            .build();
+
+        return ResponseEntity.ok( resp );
     }
 
     @TransferDoc
@@ -129,8 +140,13 @@ public class AccountController {
             @RequestBody BankTransactionValueRequest request ) {
 
         double value = request.getValue();
-        accountService.transfer( sourceAccountId, destAccountId, value );
-        return ResponseEntity.ok().build();
+        Account sourceAccount = accountService.transfer( sourceAccountId, destAccountId, value );
+
+        BalanceResponse resp = BalanceResponse.builder()
+            .balance( sourceAccount.getBalance() )
+            .build();
+
+        return ResponseEntity.ok( resp );
     }
 
 }

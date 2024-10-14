@@ -28,18 +28,19 @@ public class TransferServiceImplTests {
         UserService userService = mock( UserService.class );
         AccountService accountService = new AccountServiceImpl( accountServicePort, userService );
 
-        Account orig = AccountMocks.createAccount();
+        Account source = AccountMocks.createAccount();
         Account dest = AccountMocks.createAccount();
         
-        orig.setBalance( 500 );
+        source.setBalance( 500 );
         dest.setBalance( 300 ); 
 
-        when( accountServicePort.get( orig.getId() ) ).thenReturn( Optional.of( orig ));
+        when( accountServicePort.get( source.getId() ) ).thenReturn( Optional.of( source ));
         when( accountServicePort.get( dest.getId() ) ).thenReturn( Optional.of( dest ));
-        
-        accountService.transfer( orig.getId(), dest.getId(), 500 );
+        when( accountServicePort.save( source ) ).thenReturn( source );
 
-        assertEquals( 0, orig.getBalance() );
+        Account sourceSavedAccount = accountService.transfer( source.getId(), dest.getId(), 500 );
+
+        assertEquals( 0, sourceSavedAccount.getBalance() );
         assertEquals( 800, dest.getBalance() ); 
     }
 
@@ -50,17 +51,17 @@ public class TransferServiceImplTests {
         UserService userService = mock( UserService.class );
         AccountService accountService = new AccountServiceImpl( accountServicePort, userService );
 
-        Account orig = AccountMocks.createAccount();
+        Account source = AccountMocks.createAccount();
         Account dest = AccountMocks.createAccount();
 
-        orig.setBalance( 500 );
+        source.setBalance( 500 );
         dest.setBalance( 300 ); 
 
-        when( accountServicePort.get( orig.getId() ) ).thenReturn( Optional.empty() );
+        when( accountServicePort.get( source.getId() ) ).thenReturn( Optional.empty() );
         when( accountServicePort.get( dest.getId() ) ).thenReturn( Optional.of( dest ) );
         
         BusinessException ex = assertThrows( BusinessException.class, 
-            () -> accountService.transfer( orig.getId(), dest.getId(), 300 ) );
+            () -> accountService.transfer( source.getId(), dest.getId(), 300 ) );
 
         assertNotNull( ex );
         assertEquals( ex.error(), "Conta de origem não encontrada." ); 
@@ -73,17 +74,17 @@ public class TransferServiceImplTests {
         UserService userService = mock( UserService.class );
         AccountService accountService = new AccountServiceImpl( accountServicePort, userService );
 
-        Account orig = AccountMocks.createAccount();
+        Account source = AccountMocks.createAccount();
         Account dest = AccountMocks.createAccount();
 
-        orig.setBalance( 500 );
+        source.setBalance( 500 );
         dest.setBalance( 300 ); 
 
-        when( accountServicePort.get( orig.getId() ) ).thenReturn( Optional.of( orig ) );
+        when( accountServicePort.get( source.getId() ) ).thenReturn( Optional.of( source ) );
         when( accountServicePort.get( dest.getId() ) ).thenReturn( Optional.empty() );
         
         BusinessException ex = assertThrows( BusinessException.class, 
-            () -> accountService.transfer( orig.getId(), dest.getId(), 300 ) );
+            () -> accountService.transfer( source.getId(), dest.getId(), 300 ) );
 
         assertNotNull( ex );
         assertEquals( ex.error(), "Conta de destino não encontrada." ); 
@@ -96,14 +97,14 @@ public class TransferServiceImplTests {
         UserService userService = mock( UserService.class );
         AccountService accountService = new AccountServiceImpl( accountServicePort, userService );
 
-        Account orig = AccountMocks.createAccount();
+        Account source = AccountMocks.createAccount();
         Account dest = AccountMocks.createAccount();
 
-        when( accountServicePort.get( orig.getId() ) ).thenReturn( Optional.of( orig ));
+        when( accountServicePort.get( source.getId() ) ).thenReturn( Optional.of( source ));
         when( accountServicePort.get( dest.getId() ) ).thenReturn( Optional.of( dest ));
         
         BusinessException ex = assertThrows( BusinessException.class, 
-            () -> accountService.transfer( orig.getId(), dest.getId(), -1 ) );
+            () -> accountService.transfer( source.getId(), dest.getId(), -1 ) );
 
         assertNotNull( ex );
         assertEquals( ex.error(), "Tentativa de transferir valor negativo.");
@@ -116,17 +117,17 @@ public class TransferServiceImplTests {
         UserService userService = mock( UserService.class );
         AccountService accountService = new AccountServiceImpl( accountServicePort, userService );
 
-        Account orig = AccountMocks.createAccount();
+        Account source = AccountMocks.createAccount();
         Account dest = AccountMocks.createAccount();
 
-        orig.setBalance( 100 );
+        source.setBalance( 100 );
         dest.setBalance( 200 );
 
-        when( accountServicePort.get( orig.getId() ) ).thenReturn( Optional.of( orig ));
+        when( accountServicePort.get( source.getId() ) ).thenReturn( Optional.of( source ));
         when( accountServicePort.get( dest.getId() ) ).thenReturn( Optional.of( dest ));
         
         BusinessException ex = assertThrows( BusinessException.class, 
-            () -> accountService.transfer( orig.getId(), dest.getId(), 101 ) );
+            () -> accountService.transfer( source.getId(), dest.getId(), 101 ) );
 
         assertNotNull( ex );
         assertEquals( ex.error(), "Saldo insuficiente.");

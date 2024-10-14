@@ -12,13 +12,18 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import italo.sisbanco.infra.entrypoint.apidoc.APIDocConstants;
 import italo.sisbanco.infra.entrypoint.dto.ErrorResponse;
+import italo.sisbanco.infra.entrypoint.dto.account.BalanceResponse;
 
 @Operation(
 	summary = "Responsável por realizar a transferêcia de valor de uma conta para outra" )
 @ApiResponses(value= {
 	@ApiResponse( 		
 		responseCode = "200",
-		description = "Valor transferido com sucesso." ),				
+		description = "Valor transferido com sucesso.",
+		content=@Content(
+			mediaType = "application/json",
+			schema = @Schema(implementation = BalanceResponse.class)
+		) ),				
 	@ApiResponse(
 		responseCode = "400",
 		description = APIDocConstants.MSG_400,

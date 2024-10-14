@@ -25,6 +25,8 @@ public class AccountServiceAdapter implements AccountServicePort {
     public Account save(Account account) {
         AccountEntity entity = accountMapper.map( account );
         AccountEntity regEntity = accountRepository.save( entity );
+        System.out.println( "XXXXXXXXXXXXX "+entity+"     "+accountMapper.map( regEntity ) );
+
         return accountMapper.map( regEntity );
     }
 

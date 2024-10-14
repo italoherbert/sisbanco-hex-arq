@@ -31,12 +31,13 @@ public class DepositServiceImplTests {
         Account account = AccountMocks.createAccount();
 
         when( accountServicePort.get( account.getId() ) ).thenReturn( Optional.of( account ));
-        
-        accountService.deposit( account.getId(), 500 );
-        assertEquals( 500, account.getBalance() );
+        when( accountServicePort.save( account ) ).thenReturn( account );
 
-        accountService.deposit( account.getId(), 300 );
-        assertEquals( 800, account.getBalance() );      
+        Account savedAccount = accountService.deposit( account.getId(), 500 );
+        assertEquals( 500, savedAccount.getBalance() );
+
+        savedAccount = accountService.deposit( account.getId(), 300 );
+        assertEquals( 800, savedAccount.getBalance() );      
     }
 
     @Test

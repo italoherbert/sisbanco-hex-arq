@@ -4,6 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
@@ -151,10 +152,15 @@ public class AccountControllerTests {
     @DisplayName("Deve realizar depósito com sucesso.")
     void shouldDepositValueWithSuccessTest() throws Exception {
         double value = 100;
+        UUID accountId = UUID.randomUUID();
+        
+        Account account = Account.builder()
+            .balance(value)
+            .build();
+
+        when( accountService.deposit( accountId, value ) ).thenReturn( account );
 
         BankTransactionValueRequest request = AccountMocks.createValueRequest( value );
-        UUID accountId = UUID.randomUUID();
-
         String content = new ObjectMapper().writeValueAsString( request );
 
         mockMvc.perform( 
@@ -170,9 +176,15 @@ public class AccountControllerTests {
     @DisplayName("Deve realizar saque com sucesso.")
     void shouldCashValueWithSuccessTest() throws Exception {
         double value = 100;
-        BankTransactionValueRequest request = AccountMocks.createValueRequest( value );
         UUID accountId = UUID.randomUUID();
 
+        Account account = Account.builder()
+            .balance( value )
+            .build();
+
+        when( accountService.cash( accountId, value ) ).thenReturn( account );
+
+        BankTransactionValueRequest request = AccountMocks.createValueRequest( value );
         String content = new ObjectMapper().writeValueAsString( request );
 
         mockMvc.perform( 
@@ -188,10 +200,16 @@ public class AccountControllerTests {
     @DisplayName("Deve realizar saque com sucesso.")
     void shouldTransferValueWithSuccessTest() throws Exception {
         double value = 100;
-        BankTransactionValueRequest request = AccountMocks.createValueRequest( value );
         UUID sourceAccountId = UUID.randomUUID();
         UUID destAccountId = UUID.randomUUID();
 
+        Account sourceAccount = Account.builder()
+            .balance( value )
+            .build();
+
+        when( accountService.transfer( sourceAccountId, destAccountId, value ) ).thenReturn( sourceAccount );
+
+        BankTransactionValueRequest request = AccountMocks.createValueRequest( value );
         String content = new ObjectMapper().writeValueAsString( request );
 
         mockMvc.perform( 

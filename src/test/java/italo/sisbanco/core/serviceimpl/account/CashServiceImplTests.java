@@ -32,12 +32,13 @@ public class CashServiceImplTests {
         account.setBalance( 500 );
 
         when( accountServicePort.get( account.getId() ) ).thenReturn( Optional.of( account ));
+        when( accountServicePort.save( account ) ).thenReturn( account );
         
         accountService.cash( account.getId(), 300 );
         assertEquals( 200, account.getBalance() );
 
-        accountService.cash( account.getId(), 50 );
-        assertEquals( 150, account.getBalance() );
+        Account savedAccount = accountService.cash( account.getId(), 50 );
+        assertEquals( 150, savedAccount.getBalance() );
     }
 
     @Test

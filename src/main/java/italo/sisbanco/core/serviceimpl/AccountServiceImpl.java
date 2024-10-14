@@ -87,7 +87,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void deposit(UUID accountId, double value) {
+    public Account deposit(UUID accountId, double value) {
         if ( value < 0 )
             throw new BusinessException( BusinessException.NEGATIVE_DEPOSIT );
 
@@ -100,11 +100,11 @@ public class AccountServiceImpl implements AccountService {
         double balance = account.getBalance();
         account.setBalance( balance + value );
 
-        accountServicePort.save( account ); 
+        return accountServicePort.save( account ); 
     }
 
     @Override
-    public void cash(UUID accountId, double value) {
+    public Account cash(UUID accountId, double value) {
         if ( value < 0 )
             throw new BusinessException( BusinessException.NEGATIVE_CASH );
 
@@ -122,11 +122,11 @@ public class AccountServiceImpl implements AccountService {
         if ( newValue < 0 )
             throw new BusinessException( BusinessException.INSUFFICIENT_BALANCE );
 
-        accountServicePort.save( account );
+        return accountServicePort.save( account );
     }
 
     @Override
-    public void transfer(UUID sourceAccountId, UUID destAccountId, double value) {
+    public Account transfer(UUID sourceAccountId, UUID destAccountId, double value) {
         if ( value < 0 )
             throw new BusinessException( BusinessException.NEGATIVE_TRANSFER_VALUE );
 
@@ -157,6 +157,7 @@ public class AccountServiceImpl implements AccountService {
         destAccount.setBalance( newDestBalance ); 
 
         accountServicePort.save( sourceAccount, destAccount );        
+        return sourceAccount;
     }
 
 }

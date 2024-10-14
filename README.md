@@ -11,6 +11,11 @@ O spring security não foi utilizado numa tentativa de manter a aplicação o ma
 simples e didática possível. Logo, os endpoints são públicos e não necessitam 
 de token de acesso para serem utilizados.
 
+## Mantendo a simplicidade
+
+Por questões de simplicidade, a senha do usuário é encriptada apenas mapeando 
+seus caracteres para códigos ASCII. Inclusive, as senhas encriptadas (não as originais) são mostradas nas respostas e, geralmente, são dados sensíveis de serem mostrados assim.
+
 ## Principais endpoints do sistema
 
 * Conta
@@ -41,8 +46,6 @@ Todas as subpastas abaixo estão na pasta <b>italo/sisbanco/</b>.
         - <b>in</b> : Onde são definidas as interfaces de serviços implementados no pacote de <b>serviceimpl</b>.
         - <b>out</b> : Onde são definidas as interfaces implementadas fora do core que dependem de tecnologias externas.
     - <b>serviceimpl</b> : Onde está toda a lógica de negócio independente das tecnologias externas utilizadas no projeto.
- 
-* <b>error</b> : Onde é definida a classe de exceção principal herdada pelas exceptions do módulo <b>core</b>.
 
 * <b>infra</b> : Onde fica toda parte que utiliza tecnologias externas
     - <b>config</b> : Onde são definidas as configurações do spring boot e os beans que são instâncias das implementações da lógica de negócio.
