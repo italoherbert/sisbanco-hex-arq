@@ -2,10 +2,8 @@ package italo.sisbanco.infra.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
@@ -151,8 +149,10 @@ public class AccountControllerTests {
     @Test
     @DisplayName("Deve realizar depósito com sucesso.")
     void shouldDepositValueWithSuccessTest() throws Exception {
-        BankTransactionValueRequest request = AccountMocks.createValueRequest( 100 );
-        String accountId = UUID.randomUUID().toString();
+        double value = 100;
+
+        BankTransactionValueRequest request = AccountMocks.createValueRequest( value );
+        UUID accountId = UUID.randomUUID();
 
         String content = new ObjectMapper().writeValueAsString( request );
 
@@ -162,13 +162,15 @@ public class AccountControllerTests {
                 .content( content ) )
             .andExpect( status().isOk() );
 
+        verify( accountService, times( 1 ) ).deposit( accountId, value );
     }
 
     @Test
     @DisplayName("Deve realizar saque com sucesso.")
     void shouldCashValueWithSuccessTest() throws Exception {
-        BankTransactionValueRequest request = AccountMocks.createValueRequest( 100 );
-        String accountId = UUID.randomUUID().toString();
+        double value = 100;
+        BankTransactionValueRequest request = AccountMocks.createValueRequest( value );
+        UUID accountId = UUID.randomUUID();
 
         String content = new ObjectMapper().writeValueAsString( request );
 
@@ -177,14 +179,17 @@ public class AccountControllerTests {
                 .contentType( MediaType.APPLICATION_JSON )
                 .content( content ) )
             .andExpect( status().isOk() );
+        
+        verify( accountService, times( 1 ) ).cash( accountId, value );
     }
 
     @Test
     @DisplayName("Deve realizar saque com sucesso.")
     void shouldTransferValueWithSuccessTest() throws Exception {
-        BankTransactionValueRequest request = AccountMocks.createValueRequest( 100 );
-        String sourceAccountId = UUID.randomUUID().toString();
-        String destAccountId = UUID.randomUUID().toString();
+        double value = 100;
+        BankTransactionValueRequest request = AccountMocks.createValueRequest( value );
+        UUID sourceAccountId = UUID.randomUUID();
+        UUID destAccountId = UUID.randomUUID();
 
         String content = new ObjectMapper().writeValueAsString( request );
 
@@ -193,6 +198,8 @@ public class AccountControllerTests {
                 .contentType( MediaType.APPLICATION_JSON )
                 .content( content ) )
             .andExpect( status().isOk() );
+
+        verify( accountService, times( 1 ) ).transfer( sourceAccountId, destAccountId, value );        
     }
 
 }
