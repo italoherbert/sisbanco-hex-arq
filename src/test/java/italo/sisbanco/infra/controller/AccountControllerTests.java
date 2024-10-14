@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import italo.sisbanco.core.domain.Account;
 import italo.sisbanco.core.ports.in.AccountService;
 import italo.sisbanco.infra.entrypoint.dto.account.BankTransactionValueRequest;
+import italo.sisbanco.infra.entrypoint.dto.account.CreateAccountRequest;
 import italo.sisbanco.infra.entrypoint.dto.account.SaveAccountRequest;
 import italo.sisbanco.mocks.AccountMocks;
 
@@ -54,7 +55,7 @@ public class AccountControllerTests {
     @Test
     @DisplayName("Deve criar uma conta com sucesso.")
     void shouldCreateAccountWithSuccessTest() throws Exception {
-        SaveAccountRequest request = AccountMocks.createSaveAccountRequest();
+        CreateAccountRequest request = AccountMocks.createCreateAccountRequest();
 
         String content = new ObjectMapper().writeValueAsString( request );
 

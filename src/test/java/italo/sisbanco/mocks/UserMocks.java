@@ -7,6 +7,7 @@ import java.util.UUID;
 import com.github.javafaker.Faker;
 
 import italo.sisbanco.core.domain.User;
+import italo.sisbanco.infra.entrypoint.dto.user.CreateUserRequest;
 import italo.sisbanco.infra.entrypoint.dto.user.SavePasswordUserRequest;
 import italo.sisbanco.infra.entrypoint.dto.user.SaveUserRequest;
 import italo.sisbanco.infra.persistence.entity.UserEntity;
@@ -26,6 +27,16 @@ public class UserMocks {
             .password( securePassword )
             .email( faker.internet().emailAddress() ) 
             .active( true ) 
+            .build();
+    }
+
+    public static CreateUserRequest createCreateUserRequest() {
+        return CreateUserRequest.builder()
+            .firstname( faker.name().firstName() )
+            .lastname( faker.name().lastName() )
+            .username( faker.name().username() )
+            .email( faker.internet().emailAddress() ) 
+            .password( securePassword ) 
             .build();
     }
 

@@ -3,6 +3,7 @@ package italo.sisbanco.infra.mapper;
 import org.springframework.stereotype.Component;
 
 import italo.sisbanco.core.domain.Account;
+import italo.sisbanco.infra.entrypoint.dto.account.CreateAccountRequest;
 import italo.sisbanco.infra.entrypoint.dto.account.SaveAccountRequest;
 import italo.sisbanco.infra.persistence.entity.AccountEntity;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,12 @@ public class AccountMapper {
             .id( account.getId() )
             .balance( account.getBalance() )
             .user( userMapper.map( account.getUser() ) )
+            .build();
+    }
+
+    public Account map( CreateAccountRequest request ) {
+        return Account.builder()
+            .user( userMapper.map( request.getUser() ) )
             .build();
     }
 

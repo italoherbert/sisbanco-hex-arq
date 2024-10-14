@@ -29,6 +29,7 @@ import italo.sisbanco.infra.entrypoint.apidoc.account.ListAccountsDoc;
 import italo.sisbanco.infra.entrypoint.apidoc.account.TransferDoc;
 import italo.sisbanco.infra.entrypoint.apidoc.account.UpdateAccountDoc;
 import italo.sisbanco.infra.entrypoint.dto.account.BankTransactionValueRequest;
+import italo.sisbanco.infra.entrypoint.dto.account.CreateAccountRequest;
 import italo.sisbanco.infra.entrypoint.dto.account.SaveAccountRequest;
 import italo.sisbanco.infra.mapper.AccountMapper;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +44,7 @@ public class AccountController {
 
     @CreateAccountDoc
     @PostMapping    
-    public ResponseEntity<Account> createAccount( @RequestBody SaveAccountRequest request ) {        
+    public ResponseEntity<Account> createAccount( @RequestBody CreateAccountRequest request ) {        
         Account account = accountMapper.map( request );
         Account regAccount = accountService.create( account );
         return ResponseEntity.status( HttpStatus.CREATED ).body( regAccount );

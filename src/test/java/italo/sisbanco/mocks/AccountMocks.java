@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import italo.sisbanco.core.domain.Account;
 import italo.sisbanco.infra.entrypoint.dto.account.BankTransactionValueRequest;
+import italo.sisbanco.infra.entrypoint.dto.account.CreateAccountRequest;
 import italo.sisbanco.infra.entrypoint.dto.account.SaveAccountRequest;
 import italo.sisbanco.infra.persistence.entity.AccountEntity;
 
@@ -24,6 +25,12 @@ public class AccountMocks {
             .id( UUID.randomUUID() )
             .balance( 0 )
             .user( UserMocks.createUserEntity() ) 
+            .build();
+    }
+
+    public static CreateAccountRequest createCreateAccountRequest() {
+        return CreateAccountRequest.builder()            
+            .user( UserMocks.createCreateUserRequest() )
             .build();
     }
 

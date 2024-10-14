@@ -3,6 +3,7 @@ package italo.sisbanco.infra.mapper;
 import org.springframework.stereotype.Component;
 
 import italo.sisbanco.core.domain.User;
+import italo.sisbanco.infra.entrypoint.dto.user.CreateUserRequest;
 import italo.sisbanco.infra.entrypoint.dto.user.SaveUserRequest;
 import italo.sisbanco.infra.persistence.entity.UserEntity;
 
@@ -33,6 +34,16 @@ public class UserMapper {
             .build();
         
         return entity;
+    }
+
+    public User map( CreateUserRequest request ) {
+        return User.builder()
+            .firstname( request.getFirstname() )
+            .lastname( request.getLastname() )
+            .email( request.getEmail() )
+            .username( request.getUsername() )
+            .password( request.getPassword() ) 
+            .build();
     }
 
     public User map( SaveUserRequest request ) {

@@ -1,7 +1,5 @@
 package italo.sisbanco.core.exception;
 
-import italo.sisbanco.error.ErrorException;
-
 public class BusinessException extends ErrorException {
 
     public final static String USERNAME_EXISTS = "O nome de usuário informado já existe registrado.";

@@ -1,4 +1,4 @@
-package italo.sisbanco.error;
+package italo.sisbanco.core.exception;
 
 public class ErrorException extends RuntimeException {
     

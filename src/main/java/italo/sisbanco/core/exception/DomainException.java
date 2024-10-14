@@ -1,7 +1,5 @@
 package italo.sisbanco.core.exception;
 
-import italo.sisbanco.error.ErrorException;
-
 public class DomainException extends ErrorException {
 
     public final static String FIELD_REQUIRED = "O campo '${1}' é de preenchimento obrigatório.";
