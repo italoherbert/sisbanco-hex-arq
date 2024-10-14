@@ -45,10 +45,7 @@ public class AccountController {
     @PostMapping    
     public ResponseEntity<Account> createAccount( @RequestBody SaveAccountRequest request ) {        
         Account account = accountMapper.map( request );
-        account.validate();
-
         Account regAccount = accountService.create( account );
-
         return ResponseEntity.status( HttpStatus.CREATED ).body( regAccount );
     }
 
@@ -57,13 +54,9 @@ public class AccountController {
     public ResponseEntity<Object> updateAccount( 
             @PathVariable UUID accountId, 
             @RequestBody SaveAccountRequest request ) {
+
         Account account = accountMapper.map( request );
-        account.setId( accountId );
-
-        account.validate(); 
-
-        accountService.update( account );
-
+        accountService.update( accountId, account );
         return ResponseEntity.ok().build();
     }
 

@@ -41,7 +41,6 @@ public class UserMapper {
             .lastname( request.getLastname() )
             .email( request.getEmail() )
             .username( request.getUsername() )
-            .password( request.getPassword() )
             .build();
     }
 

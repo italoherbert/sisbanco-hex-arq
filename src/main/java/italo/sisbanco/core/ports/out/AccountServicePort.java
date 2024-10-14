@@ -8,11 +8,9 @@ import italo.sisbanco.core.domain.Account;
 
 public interface AccountServicePort {
     
-    Account insert( Account account );
+    Account save( Account account );
 
-    void update( Account account );
-
-    void update( Account sourceAccount, Account destAccount );
+    void save( Account sourceAccount, Account destAccount );
 
     void delete( UUID accountId );
 

@@ -38,14 +38,14 @@ public class AccountServiceAdapterTests {
     private AccountRepository accountRepository;
 
     @Test
-    @DisplayName("Deve inserir uma Account no sistema")
-    void insertAccountTest() {
+    @DisplayName("Deve salvar uma Account no sistema")
+    void saveAccountTest() {
         Account account = AccountMocks.createAccount();
         AccountEntity entity = accountMapper.map( account );
                 
         when( accountRepository.save( any( AccountEntity.class) ) ).thenReturn( entity );
         
-        Account createdAccount = accountServiceAdapter.insert( account );
+        Account createdAccount = accountServiceAdapter.save( account );
 
         assertNotNull( createdAccount );
         assertEquals( account.getId(), createdAccount.getId() );
@@ -55,20 +55,8 @@ public class AccountServiceAdapterTests {
     }
 
     @Test
-    @DisplayName("Deve atualizar uma Account no sistema")
-    void updateAccountTest() {
-        Account account = AccountMocks.createAccount();
-        AccountEntity entity = accountMapper.map( account );
-                        
-        when( accountRepository.save( entity ) ).thenReturn( entity );
-
-        accountServiceAdapter.update( account );  
-        verify( accountRepository, times( 1 ) ).save( any(AccountEntity.class) );        
-    }
-
-    @Test
-    @DisplayName("Deve atualizar as contas de origem e destino de uma transação")
-    void updateSourceAndDestAccountsTest() {
+    @DisplayName("Deve salvar as contas de origem e destino de uma transação")
+    void saveSourceAndDestAccountsTest() {
         Account orig = AccountMocks.createAccount();
         Account dest = AccountMocks.createAccount();
 
@@ -78,7 +66,7 @@ public class AccountServiceAdapterTests {
         when( accountRepository.save( origEntity ) ).thenReturn( origEntity );
         when( accountRepository.save( destEntity ) ).thenReturn( destEntity );
 
-        accountServiceAdapter.update( orig, dest );
+        accountServiceAdapter.save( orig, dest );
         
         verify( accountRepository, times( 2 ) ).save( any( AccountEntity.class ) );
     }

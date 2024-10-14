@@ -21,19 +21,33 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account create( Account account ) {               
+    public Account create( Account account ) { 
+        account.validate();
+
         userService.prepareUserForCreate( account.getUser() );
 
         account.setBalance( 0 ); 
 
-        return accountServicePort.insert( account );
+        return accountServicePort.save( account );
     }
 
     @Override
-    public void update(Account account) {
-        userService.prepareUserForUpdate( account.getUser() );
+    public Account update(UUID accountId, Account account) {
+        Optional<Account> accountOp = accountServicePort.get( accountId );
+        if ( !accountOp.isPresent() )
+            throw new BusinessException( BusinessException.ACCOUNT_NOT_FOUND );
+
+        Account account2 = accountOp.get();
+        account2.getUser().setFirstname( account.getUser().getFirstname() );
+        account2.getUser().setLastname( account.getUser().getLastname() );
+        account2.getUser().setEmail( account.getUser().getEmail() );
+        account2.getUser().setUsername( account.getUser().getUsername() ); 
+
+        account2.validate();
+
+        userService.prepareUserForUpdate( account2.getUser() );
         
-        accountServicePort.update( account ); 
+        return accountServicePort.save( account2 ); 
     }
 
     @Override
@@ -86,7 +100,7 @@ public class AccountServiceImpl implements AccountService {
         double balance = account.getBalance();
         account.setBalance( balance + value );
 
-        accountServicePort.update( account ); 
+        accountServicePort.save( account ); 
     }
 
     @Override
@@ -108,13 +122,16 @@ public class AccountServiceImpl implements AccountService {
         if ( newValue < 0 )
             throw new BusinessException( BusinessException.INSUFFICIENT_BALANCE );
 
-        accountServicePort.update( account );
+        accountServicePort.save( account );
     }
 
     @Override
     public void transfer(UUID sourceAccountId, UUID destAccountId, double value) {
         if ( value < 0 )
             throw new BusinessException( BusinessException.NEGATIVE_TRANSFER_VALUE );
+
+        if ( sourceAccountId.equals( destAccountId ) )
+            throw new BusinessException( BusinessException.EQUALS_SOURCE_AND_DEST_ACCOUNTS );
 
         Optional<Account> sourceAccountOp = accountServicePort.get( sourceAccountId );
         if ( !sourceAccountOp.isPresent() )
@@ -139,8 +156,7 @@ public class AccountServiceImpl implements AccountService {
         sourceAccount.setBalance( newSourceBalance );
         destAccount.setBalance( newDestBalance ); 
 
-        accountServicePort.update( sourceAccount, destAccount );
-        
+        accountServicePort.save( sourceAccount, destAccount );        
     }
 
 }

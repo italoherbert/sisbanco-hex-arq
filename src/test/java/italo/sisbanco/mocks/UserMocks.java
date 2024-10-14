@@ -33,7 +33,6 @@ public class UserMocks {
             .firstname( faker.name().firstName() )
             .lastname( faker.name().lastName() )
             .username( faker.name().username() )
-            .password( securePassword )
             .email( faker.internet().emailAddress() ) 
             .build();
     }

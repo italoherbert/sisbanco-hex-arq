@@ -60,7 +60,6 @@ public class UserMapperTests {
         assertEquals( user.getLastname(), request.getLastname() );
         assertEquals( user.getEmail(), request.getEmail() );
         assertEquals( user.getUsername(), request.getUsername() );
-        assertEquals( user.getPassword(), request.getPassword() );
     }
 
 }

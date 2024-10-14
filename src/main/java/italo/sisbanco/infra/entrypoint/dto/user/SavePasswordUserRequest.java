@@ -11,14 +11,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class SaveUserRequest {
+public class SavePasswordUserRequest {
     
-    private String firstname;
-
-    private String lastname;
-
-    private String email;
-
-    private String username;
+    private String password;
 
 }

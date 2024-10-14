@@ -30,14 +30,14 @@ public class CreateAccountServiceImplTests {
         Account account = AccountMocks.createAccount();
 
         doNothing().when( userService ).prepareUserForCreate( account.getUser() );
-        when( accountServicePort.insert( account ) ).thenReturn( account );
+        when( accountServicePort.save( account ) ).thenReturn( account );
 
         Account accountReg = accountService.create( account );
         assertNotNull( accountReg );
         assertEquals( accountReg.getId(), account.getId() );
         assertEquals( accountReg.getBalance(), 0 );
         verify( userService, times( 1 ) ).prepareUserForCreate( account.getUser() );
-        verify( accountServicePort, times( 1 ) ).insert( account );    
+        verify( accountServicePort, times( 1 ) ).save( account );    
     }
 
 }

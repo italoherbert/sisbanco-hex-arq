@@ -9,7 +9,7 @@ public interface AccountService {
 
     Account create( Account account );
 
-    void update( Account account );
+    Account update( UUID accountId, Account account );
 
     void delete( UUID accountId );
 

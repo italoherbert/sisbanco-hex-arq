@@ -22,21 +22,15 @@ public class AccountServiceAdapter implements AccountServicePort {
     private final AccountMapper accountMapper;
 
     @Override
-    public Account insert(Account account) {
+    public Account save(Account account) {
         AccountEntity entity = accountMapper.map( account );
         AccountEntity regEntity = accountRepository.save( entity );
         return accountMapper.map( regEntity );
     }
 
     @Override
-    public void update(Account account) {
-        AccountEntity entity = accountMapper.map( account );
-        accountRepository.save( entity );
-    }
-
-    @Override
     @Transactional
-    public void update(Account sourceAccount, Account destAccount) {
+    public void save(Account sourceAccount, Account destAccount) {
         AccountEntity sourceEntity = accountMapper.map( sourceAccount );
         AccountEntity destEntity = accountMapper.map( destAccount );
         

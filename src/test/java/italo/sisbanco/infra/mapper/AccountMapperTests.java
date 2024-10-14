@@ -52,7 +52,6 @@ public class AccountMapperTests {
         assertEquals( request.getUser().getLastname(), account.getUser().getLastname() );
         assertEquals( request.getUser().getEmail(), account.getUser().getEmail() );
         assertEquals( request.getUser().getUsername(), account.getUser().getUsername() );
-        assertEquals( request.getUser().getPassword(), account.getUser().getPassword() );
     }
 
 }

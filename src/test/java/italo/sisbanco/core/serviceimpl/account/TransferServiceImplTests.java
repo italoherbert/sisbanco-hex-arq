@@ -132,4 +132,20 @@ public class TransferServiceImplTests {
         assertEquals( ex.error(), "Saldo insuficiente.");
     }
 
+    @Test
+    @DisplayName("Deve tratar exceção de contas de origem e destino iguais")
+    void shouldThrowSourceAndDestAccountEqualsTest() {
+        AccountServicePort accountServicePort = mock( AccountServicePort.class );
+        UserService userService = mock( UserService.class );
+        AccountService accountService = new AccountServiceImpl( accountServicePort, userService );
+
+        Account account = AccountMocks.createAccount();
+        account.setBalance( 100 );
+
+        BusinessException ex = assertThrows( BusinessException.class, 
+            () -> accountService.transfer( account.getId(), account.getId(), 100 ) );
+
+        assertNotNull( ex );
+        assertEquals( ex.error(), "As contas de origem e destino não podem ser a mesma.");
+    }
 }
