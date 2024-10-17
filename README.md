@@ -98,7 +98,7 @@ Para rodar, após o build bem sucedido, basta executar o jar que foi gerado e co
 ```
 java -jar sisbanco-1.0-SNAPSHOT.jar
 ```
-## Rodar o swagger
+### Rodar o swagger
 
 Para rodar o swagger, abra seu navegador preferido e acesse o swagger pela seguinte url:
 
@@ -106,7 +106,7 @@ Para rodar o swagger, abra seu navegador preferido e acesse o swagger pela segui
 http://localhost:8080/swagger-ui.html
 ```
 
-## Rodar a release
+### Rodar a release
 
 Para rodar a release, basta baixar o jar disponível no github como release para este projeto e configurar o banco de dados conforme já mostrado anteriormente. Rode o jar com o seguinte comando:
 
