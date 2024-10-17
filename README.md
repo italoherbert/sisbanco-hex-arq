@@ -82,6 +82,8 @@ O sistema é um microserviço só e depende apenas do jdk, versão 17, e de um b
 * <b>username</b>: postgres
 * <b>password</b>: postgres
 
+Para rodar o sistema é necessário que o banco de dados "sisbanco" já tenha sido criado1
+
 ### Empacotar utilizando o maven
 
 Para fazer o build e empacotamento da aplicação, utilize o seguinte comando:
